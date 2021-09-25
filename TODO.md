@@ -1,0 +1,12 @@
+- Finish refacto front & back
+- Can add/update skill of a wilder
+- Add searchbar
+- Add votes
+- Add button to display next n wilder and back as well
+- Add filter for skill
+- Sort wilder by name or date added
+- Add Wilder to favorite
+- Upload profile picture or with link
+- Work responsive
+- Improve UI
+- ... to be continued
