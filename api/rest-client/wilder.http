@@ -1,0 +1,40 @@
+POST http://localhost:3001/wilders HTTP/1.1
+content-type: application/json
+
+{
+    "name": "Last Wilder",
+    "city": "Alaska",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sagittis, eros eu vulputate mattis, tortor mauris suscipit eros, a molestie dui nisl ac massa. Sed sit amet felis ut ligula semper lacinia vitae quis enim. Donec maximus ullamcorper nisi ut malesuada. Etiam mattis odio at tempus vulputate. Proin non nunc.",
+    "skills": [
+      { "title": "HTML", "votes": 5 },
+      { "title": "CSS", "votes":  3},
+      { "title": "Java", "votes": 9},
+      { "title": "Angular", "votes": 8 },
+      { "title": "Python", "votes":  6},
+      { "title": "React", "votes": 4 }
+    ]
+}
+####
+PUT http://localhost:3001/wilders/koko HTTP/1.1
+content-type: application/json
+
+{
+    "name": "koko",
+    "city": "ici",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sagittis, eros eu vulputate mattis, tortor mauris suscipit eros, a molestie dui nisl ac massa. Sed sit amet felis ut ligula semper lacinia vitae quis enim. Donec maximus ullamcorper nisi ut malesuada. Etiam mattis odio at tempus vulputate. Proin non nunc.",
+    "skills": [
+      { "title": "HTML", "votes": 10 },
+      { "title": "React", "votes": 5 }
+    ]
+}
+
+###
+
+GET http://localhost:3001/wilders HTTP/1.1
+
+###
+
+DELETE http://localhost:3001/wilders/Messi HTTP/1.1
+###
+
+GET http://localhost:3001/wilders/614e13118d205cd71745e37a HTTP/1.1
