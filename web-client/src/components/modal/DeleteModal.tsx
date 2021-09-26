@@ -62,6 +62,7 @@ const DeleteModal = ({
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
         style={customStyles}
+        ariaHideApp={false}
         contentLabel="Delete Wilder Modal"
       >
         <p>

@@ -4,7 +4,6 @@ export type WilderType = {
   name: string;
   description: string;
   skills: any[];
-  // handleDelete: (_id: string) => Promise<void>;
 };
 
 export type WilderSkills = {

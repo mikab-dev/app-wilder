@@ -9,10 +9,13 @@ import "./App.css";
 import WildersList from "./components/wilders/WildersList";
 import { Route, Switch } from "react-router";
 import WilderDetails from "./components/wilders/WilderDetails";
+// import SearchBar from "./components/searchbar/SearchBar";
 
 const App = () => {
   const [wilders, setWilders] = useState<WilderType[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  // const [searchTerm, setSearchTerm] = useState<string>("");
+
   const apiUrl = "/wilders";
 
   const fetchWilders = async () => {
