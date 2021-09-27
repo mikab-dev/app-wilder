@@ -2,7 +2,7 @@ POST http://localhost:3001/wilders HTTP/1.1
 content-type: application/json
 
 {
-    "name": "Last Wilder",
+    "name": "WazaAZA",
     "city": "Alaska",
     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sagittis, eros eu vulputate mattis, tortor mauris suscipit eros, a molestie dui nisl ac massa. Sed sit amet felis ut ligula semper lacinia vitae quis enim. Donec maximus ullamcorper nisi ut malesuada. Etiam mattis odio at tempus vulputate. Proin non nunc.",
     "skills": [

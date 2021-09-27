@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
-// import AddWilder from "./components/AddWilder";
+import { Route, Switch } from "react-router";
+
 import { WilderType } from "./components/types/types";
 import Loader from "./components/loader/Loader";
+import WildersList from "./components/wilders/WildersList";
+import WilderDetails from "./components/wilders/WilderDetails";
+import SearchBar from "./components/searchbar/SearchBar";
 
 import * as styled from "./App.styled";
 import "./App.css";
-import WildersList from "./components/wilders/WildersList";
-import { Route, Switch } from "react-router";
-import WilderDetails from "./components/wilders/WilderDetails";
-// import SearchBar from "./components/searchbar/SearchBar";
 
 const App = () => {
   const [wilders, setWilders] = useState<WilderType[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  // const [searchTerm, setSearchTerm] = useState<string>("");
+  const [searchTerm, setSearchTerm] = useState<string>("");
 
   const apiUrl = "/wilders";
 
@@ -32,10 +32,9 @@ const App = () => {
     setWilders(wilders.filter((wilder) => wilder._id !== _id));
   };
 
-  // const handleUpdateWilderInfo = async (_id: string) => {
-  //   await axios.put(`${apiUrl}/${_id}`);
-  //   await fetchWilders();
-  // };
+  const filteredList = wilders.filter((wilder) =>
+    wilder.name.toLocaleLowerCase().includes(searchTerm.toLocaleLowerCase())
+  );
 
   return (
     <div>
@@ -45,21 +44,21 @@ const App = () => {
         </styled.Container>
       </styled.Header>
       <Switch>
-        {/* <Route exact path="/"/> */}
         <Route path="/wilders/:_id" component={WilderDetails} />
         <styled.Container>
           <h2>Wilders</h2>
+          <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
           <styled.CardRow>
             {loading && <Loader />}
             <WildersList
               list={wilders}
+              filteredList={filteredList}
               deleteWilder={deleteWilder}
               onSuccess={fetchWilders}
             />
           </styled.CardRow>
         </styled.Container>
       </Switch>
-      {/* <AddWilder onSuccess={fetchWilders} /> */}
       <styled.Footer>
         <styled.Container>
           <p>&copy; 2020 Wild Code School</p>

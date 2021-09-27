@@ -1,9 +1,9 @@
 const SearchBar = ({
   searchTerm,
-  submitSearchTerm,
+  setSearchTerm
 }: {
   searchTerm: string;
-  submitSearchTerm: (e: string) => void;
+  setSearchTerm: (e: any) => void;
 }) => {
   return (
     <div>
@@ -12,7 +12,7 @@ const SearchBar = ({
         placeholder="Search..."
         value={searchTerm}
         onChange={(event) => {
-          submitSearchTerm(event.target.value);
+          setSearchTerm(event.target.value);
         }}
       ></input>
     </div>
