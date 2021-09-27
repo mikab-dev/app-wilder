@@ -15,15 +15,13 @@ const customStyles = {
   },
 };
 
-const DeleteModal = ({
-  name,
-  _id,
-  deleteWilder,
-}: {
+type Props = {
   name: string;
   _id: string;
   deleteWilder: (_id: string) => void;
-}) => {
+};
+
+const DeleteModal = ({ name, _id, deleteWilder }: Props) => {
   const [modalIsOpen, setIsOpen] = useState<boolean>(false);
   const successfullWilderAdd = () => toast.success(`${name} delete success!`);
 

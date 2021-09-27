@@ -3,46 +3,68 @@ import WilderItem from "./WilderItem";
 
 import { WilderType } from "../types/types";
 
-import { LIST_SIZE } from "../../constants";
+type Props = {
+  list: WilderType[];
+  filteredList: WilderType[];
+  sortedListByAlphabeltAsc: WilderType[];
+  favoritesList: WilderType[];
+  orderedListByAsc: boolean;
+  deleteWilder: (_id: string) => void;
+  onSuccess: () => void;
+  toggleFavorites: (wilder: any) => void;
+};
 
 const WildersList = ({
   list,
   filteredList,
+  sortedListByAlphabeltAsc,
+  favoritesList,
+  // orderedListByAsc,
   deleteWilder,
   onSuccess,
-}: {
-  list: WilderType[];
-  filteredList: WilderType[];
-  deleteWilder: (_id: string) => void;
-  onSuccess: () => void;
-}) => {
-  const slicedList = list.slice(0, LIST_SIZE);
-
+  toggleFavorites,
+}: Props) => {
   return (
     <>
-      {filteredList.length
-        ? filteredList.map((wilder: WilderType) => (
+      {/* {filteredList.length > 0 &&
+        filteredList.map((wilder: any) => {
+          const isFavorite = favoritesList.some((favorite) => {
+            return favorite._id === wilder._id;
+          });
+          return (
             <WilderItem
+              wilder={wilder}
               key={wilder._id}
               _id={wilder._id}
-              city={wilder.city}
               name={wilder.name}
+              city={wilder.city}
               description={wilder.description}
               // skills={wilder.skills}
               deleteWilder={deleteWilder}
+              toggleFavorites={toggleFavorites}
+              isFavorite={isFavorite}
             />
-          ))
-        : slicedList.map((wilder: WilderType) => (
-            <WilderItem
-              key={wilder._id}
-              _id={wilder._id}
-              city={wilder.city}
-              name={wilder.name}
-              description={wilder.description}
-              // skills={wilder.skills}
-              deleteWilder={deleteWilder}
-            />
-          ))}
+          );
+        })} */}
+      {sortedListByAlphabeltAsc.map((wilder: any) => {
+        const isFavorite = favoritesList.some((favorite) => {
+          return favorite._id === wilder._id;
+        });
+        return (
+          <WilderItem
+            wilder={wilder}
+            isFavorite={isFavorite}
+            key={wilder._id}
+            _id={wilder._id}
+            name={wilder.name}
+            city={wilder.city}
+            description={wilder.description}
+            // skills={wilder.skills}
+            deleteWilder={deleteWilder}
+            toggleFavorites={toggleFavorites}
+          />
+        );
+      })}
       <CreateWilder onSuccess={onSuccess} />
       <button>Next</button>
     </>

@@ -30,13 +30,12 @@ const SkillContainer = styled.li`
   padding: 2px;
 `;
 
-const Skill = ({
-  title,
-  votes,
-}: {
+type Props = {
   title: WilderSkills;
   votes: WilderSkills;
-}) => {
+};
+
+const Skill = ({ title, votes }: Props) => {
   return (
     <SkillContainer>
       {title}

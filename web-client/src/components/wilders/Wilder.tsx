@@ -21,14 +21,7 @@ const customStyles = {
   },
 };
 
-const Wilder = ({
-  name,
-  city,
-  description,
-  skills,
-  _id,
-}: // handleDelete,
-WilderType) => {
+const Wilder = ({ name, city, description, skills, _id }: WilderType) => {
   const [modalIsOpen, setIsOpen] = useState<boolean>(false);
   const successfullWilderAdd = () => toast.success(`${name} delete success!`);
 

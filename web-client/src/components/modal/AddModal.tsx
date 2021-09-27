@@ -14,7 +14,11 @@ const customStyles = {
   },
 };
 
-const AddModal = ({ onSuccess }: { onSuccess: () => void }) => {
+type Props = {
+  onSuccess: () => void;
+};
+
+const AddModal = ({ onSuccess }: Props) => {
   const [modalIsOpen, setIsOpen] = useState<boolean>(false);
   useEffect(() => {
     if (modalIsOpen === true) {
