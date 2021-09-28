@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import { Route, Switch } from "react-router";
 
@@ -38,6 +38,32 @@ const App = () => {
     localStorage.setItem("addToFavoritesWilder", JSON.stringify(favorites));
   }, [favorites]);
 
+  useEffect(() => {
+    if (searchTerm.length === 0) {
+      fetchWilders();
+    }
+  }, [searchTerm]);
+
+  useEffect(() => {
+    if (orderedListByAsc === true && !searchTerm) {
+      const sortedListByAlphabeltAsc = wilders.sort((a, b) =>
+        a.name.toLocaleLowerCase() > b.name.toLocaleLowerCase() ? 1 : -1
+      );
+      setWilders(sortedListByAlphabeltAsc);
+    } else if (orderedListByAsc === false && !searchTerm) {
+      const sortedListByAlphabeltDesc = wilders.sort((a, b) =>
+        a.name.toLocaleLowerCase() > b.name.toLocaleLowerCase() ? -1 : 1
+      );
+      setWilders(sortedListByAlphabeltDesc);
+    } else if (searchTerm) {
+      const filteredList = wilders.filter((wilder) =>
+        wilder.name.toLocaleLowerCase().includes(searchTerm.toLocaleLowerCase())
+      );
+      setWilders(filteredList);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchTerm, orderedListByAsc]);
+
   const deleteWilder = (_id: string) => {
     setWilders(wilders.filter((wilder) => wilder._id !== _id));
   };
@@ -45,17 +71,6 @@ const App = () => {
   const toggleOrderedList = () => {
     setOrderedListByAsc(!orderedListByAsc);
   };
-
-  const filteredList = wilders.filter((wilder) =>
-    wilder.name.toLocaleLowerCase().includes(searchTerm.toLocaleLowerCase())
-  );
-  const sortedListByAlphabeltAsc = wilders.sort((a, b) =>
-    a.name.toLocaleLowerCase() > b.name.toLocaleLowerCase() ? 1 : -1
-  );
-
-  // const sortedListByAlphabeltDesc = wilders.sort((a, b) =>
-  //   a.name.toLocaleLowerCase() > b.name.toLocaleLowerCase() ? -1 : 1
-  // );
 
   const toggleFavoriteWilder = (wilder: WilderType) => {
     if (
@@ -69,8 +84,6 @@ const App = () => {
       setFavorites(newFavorites);
     }
   };
-
-  console.log(favorites);
 
   return (
     <div>
@@ -93,11 +106,9 @@ const App = () => {
           />
           <styled.CardRow>
             {loading && <Loader />}
+            {wilders.length === 0 && <p>No wilders found</p>}
             <WildersList
               list={wilders}
-              sortedListByAlphabeltAsc={sortedListByAlphabeltAsc}
-              orderedListByAsc={orderedListByAsc}
-              filteredList={filteredList}
               deleteWilder={deleteWilder}
               favoritesList={favorites}
               onSuccess={fetchWilders}

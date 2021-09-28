@@ -5,10 +5,10 @@ import { WilderType } from "../types/types";
 
 type Props = {
   list: WilderType[];
-  filteredList: WilderType[];
-  sortedListByAlphabeltAsc: WilderType[];
+  // filteredList: WilderType[];
+  // sortedListByAlphabeltAsc: WilderType[];
   favoritesList: WilderType[];
-  orderedListByAsc: boolean;
+  // orderedListByAsc: boolean;
   deleteWilder: (_id: string) => void;
   onSuccess: () => void;
   toggleFavorites: (wilder: any) => void;
@@ -16,18 +16,15 @@ type Props = {
 
 const WildersList = ({
   list,
-  filteredList,
-  sortedListByAlphabeltAsc,
   favoritesList,
-  // orderedListByAsc,
   deleteWilder,
   onSuccess,
   toggleFavorites,
 }: Props) => {
   return (
     <>
-      {/* {filteredList.length > 0 &&
-        filteredList.map((wilder: any) => {
+      {list.length > 0 &&
+        list.map((wilder: any) => {
           const isFavorite = favoritesList.some((favorite) => {
             return favorite._id === wilder._id;
           });
@@ -45,8 +42,8 @@ const WildersList = ({
               isFavorite={isFavorite}
             />
           );
-        })} */}
-      {sortedListByAlphabeltAsc.map((wilder: any) => {
+        })}
+      {/* {sortedListByAlphabeltAsc.map((wilder: any) => {
         const isFavorite = favoritesList.some((favorite) => {
           return favorite._id === wilder._id;
         });
@@ -64,7 +61,7 @@ const WildersList = ({
             toggleFavorites={toggleFavorites}
           />
         );
-      })}
+      })} */}
       <CreateWilder onSuccess={onSuccess} />
       <button>Next</button>
     </>

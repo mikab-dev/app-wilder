@@ -23,6 +23,7 @@ const SearchBar = ({
           setSearchTerm(e.target.value);
         }}
       ></input>
+
       <button onClick={(e) => toggleOrderedList(e)}>
         {orderedListByAsc === true ? "Asc" : "Desc"}
       </button>
