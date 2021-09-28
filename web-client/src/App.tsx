@@ -31,18 +31,14 @@ const App = () => {
   };
 
   useEffect(() => {
-    fetchWilders();
-  }, []);
+    if (searchTerm.length === 0 || searchTerm === "") {
+      fetchWilders();
+    }
+  }, [searchTerm]);
 
   useEffect(() => {
     localStorage.setItem("addToFavoritesWilder", JSON.stringify(favorites));
   }, [favorites]);
-
-  useEffect(() => {
-    if (searchTerm.length === 0) {
-      fetchWilders();
-    }
-  }, [searchTerm]);
 
   useEffect(() => {
     if (orderedListByAsc === true && !searchTerm) {
