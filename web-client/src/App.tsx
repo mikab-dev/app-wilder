@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { Route, Switch } from "react-router";
 
@@ -16,11 +16,14 @@ import Favorites from "./components/wilders/Favorites";
 import { Link } from "react-router-dom";
 
 const App = () => {
+  const [visibleWilders, setVisibleWilders] = useState<WilderType[]>([]);
   const [wilders, setWilders] = useState<WilderType[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [favorites, setFavorites] = useState(getInitialFavorites());
   const [orderedListByAsc, setOrderedListByAsc] = useState<boolean>(true);
+
+  // console.log(wilders);
 
   const apiUrl = "/wilders";
 
@@ -29,33 +32,35 @@ const App = () => {
     setWilders(response.data.result);
     setLoading(false);
   };
+  useEffect(() => {
+    fetchWilders();
+  }, []);
 
   useEffect(() => {
-    if (searchTerm.length === 0 || searchTerm === "") {
-      fetchWilders();
-    }
-  }, [searchTerm]);
+    setVisibleWilders(wilders);
+  }, [wilders]);
 
   useEffect(() => {
     localStorage.setItem("addToFavoritesWilder", JSON.stringify(favorites));
   }, [favorites]);
 
   useEffect(() => {
-    if (orderedListByAsc === true && !searchTerm) {
+    if (orderedListByAsc && !searchTerm) {
       const sortedListByAlphabeltAsc = wilders.sort((a, b) =>
         a.name.toLocaleLowerCase() > b.name.toLocaleLowerCase() ? 1 : -1
       );
-      setWilders(sortedListByAlphabeltAsc);
-    } else if (orderedListByAsc === false && !searchTerm) {
+      setVisibleWilders(sortedListByAlphabeltAsc);
+    } else if (!orderedListByAsc && !searchTerm) {
       const sortedListByAlphabeltDesc = wilders.sort((a, b) =>
         a.name.toLocaleLowerCase() > b.name.toLocaleLowerCase() ? -1 : 1
       );
-      setWilders(sortedListByAlphabeltDesc);
+      setVisibleWilders(sortedListByAlphabeltDesc);
     } else if (searchTerm) {
-      const filteredList = wilders.filter((wilder) =>
-        wilder.name.toLocaleLowerCase().includes(searchTerm.toLocaleLowerCase())
-      );
-      setWilders(filteredList);
+      const filteredList = wilders.filter((wilder) => {
+        return wilder.name.toLowerCase().includes(searchTerm.toLowerCase());
+      });
+      // console.log(filteredList);
+      setVisibleWilders(filteredList);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchTerm, orderedListByAsc]);
@@ -102,9 +107,9 @@ const App = () => {
           />
           <styled.CardRow>
             {loading && <Loader />}
-            {wilders.length === 0 && <p>No wilders found</p>}
+            {visibleWilders.length === 0 && <p>No wilders found</p>}
             <WildersList
-              list={wilders}
+              list={visibleWilders}
               deleteWilder={deleteWilder}
               favoritesList={favorites}
               onSuccess={fetchWilders}

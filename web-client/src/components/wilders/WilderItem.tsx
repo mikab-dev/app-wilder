@@ -16,7 +16,7 @@ type WilderProps = Pick<WilderType, "name" | "city" | "description" | "_id"> & {
   deleteWilder: (_id: string) => void;
   toggleFavorites: (_id: string) => void;
   isFavorite: boolean;
-  wilder: string
+  wilder: string;
 };
 const WilderItem = ({
   name,
